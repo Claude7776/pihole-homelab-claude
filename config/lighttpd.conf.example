@@ -1,0 +1,32 @@
+# Exemple de configuration Lighttpd pour Pi-hole
+
+server.modules = (
+    "mod_access",
+    "mod_accesslog",
+    "mod_compress",
+    "mod_redirect",
+)
+
+server.document-root        = "/var/www/html"
+server.upload-dirs          = ( "/var/cache/lighttpd/uploads" )
+server.errorlog             = "/var/log/lighttpd/error.log"
+accesslog.filename          = "/var/log/lighttpd/access.log"
+
+server.port                 = 80
+server.username             = "www-data"
+server.groupname            = "www-data"
+
+# Limiter l’accès uniquement au réseau local (192.168.1.0/24)
+$HTTP["remoteip"] !~ "192\.168\.1\." {
+    url.access-deny = ( "" )
+}
+
+# Désactiver l’énumération des dossiers
+dir-listing.activate        = "disable"
+
+# Compression des fichiers statiques
+compress.cache-dir          = "/var/cache/lighttpd/compress/"
+compress.filetype           = ( "text/plain", "text/css", "application/javascript" )
+
+# Activer Pi-hole dans /admin
+include_shell "/etc/pihole/setupLighttpd.conf"

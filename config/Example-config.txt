@@ -1,0 +1,10 @@
+# Exemple de configuration IP statique pour Pi-hole
+# Veuillez noter qu'il faut vérifier votre interface réseau
+INTERFACE=eth0
+IPV4_ADDRESS=192.168.1.250/24
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+DNS2=1.1.1.1
+
+# Le DNS de Pi-hole doit être défini dans le routeur comme DNS principal
+# DHCP peut rester géré par le routeur si souhaité
